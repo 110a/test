@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      .lines.running {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 200;
+  /* animation: dash 3s linear alternate 1; */
+}
+
+.path {
+  transition: all .9s;
+}
+.lines {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  transition: all .9s;
+}
+.close {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 200;
+  transition: all .9s;
+}
+
+/* @keyframes dash {
+  from {
+    stroke-dashoffset: 400;
+  }
+  to {
+    stroke-dashoffset: 400;
+  }
+} */
+
+
+
+:root {
+  --color-blue: #0094ff;
+  --color-white: #fff;
+  --stroke: #fff;
+  --stroke-width: 6px;
+  --duration: 0.5s;
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0094ff;
+}
+
+.volume-icon {
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.volume-icon__input {
+  display: none;
+}
+.volume-icon__input + svg {
+  display: block;
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 6px;
+  width: 108px;
+  height: 96px;
+}
+.volume-icon__input + svg path {
+  animation: var(--name) 0.5s ease forwards;
+}
+.volume-icon__input + svg path:nth-child(2) {
+  stroke-dashoffset: 1px;
+}
+.volume-icon__input + svg path:nth-child(3) {
+  stroke-dashoffset: 1px;
+}
+.volume-icon__input:checked + svg path:nth-child(1) {
+  --name: shape;
+}
+.volume-icon__input:checked + svg path:nth-child(2) {
+  --name: small;
+}
+.volume-icon__input:checked + svg path:nth-child(3) {
+  --name: large;
+}
+.volume-icon__input:not(:checked) + svg path:nth-child(1) {
+  --name: shape-r;
+}
+.volume-icon__input:not(:checked) + svg path:nth-child(2) {
+  --name: small-r;
+}
+.volume-icon__input:not(:checked) + svg path:nth-child(3) {
+  --name: large-r;
+}
+
+@keyframes small {
+  0%, 30% {
+    stroke-dasharray: 0 0 30px 64px;
+  }
+  40% {
+    stroke-dashoffset: 16px;
+  }
+  80%, 100% {
+    stroke-dashoffset: 1px;
+  }
+  70% {
+    stroke-dasharray: 0 43px 30px 64px;
+  }
+  100% {
+    stroke-dasharray: 0 39px 30px 64px;
+  }
+}
+@keyframes small-r {
+  0% {
+    stroke-dasharray: 0 39px 30px 64px;
+  }
+  0%, 40% {
+    stroke-dashoffset: 1px;
+  }
+  70% {
+    stroke-dashoffset: 16px;
+  }
+  70%, 100% {
+    stroke-dasharray: 0 0 30px 64px;
+  }
+}
+@keyframes large {
+  0%, 30% {
+    stroke-dasharray: 0 0 50px 84px;
+  }
+  40% {
+    stroke-dashoffset: 16px;
+  }
+  80%, 100% {
+    stroke-dashoffset: 1px;
+  }
+  70% {
+    stroke-dasharray: 0 82px 32px 84px;
+  }
+  100% {
+    stroke-dasharray: 0 78px 32px 84px;
+  }
+}
+@keyframes large-r {
+  0% {
+    stroke-dasharray: 0 78px 32px 84px;
+  }
+  0%, 40% {
+    stroke-dashoffset: 1px;
+  }
+  70% {
+    stroke-dashoffset: 16px;
+  }
+  70%, 100% {
+    stroke-dasharray: 0 0 50px 84px;
+  }
+}
+@keyframes shape {
+  0% {
+    stroke-dasharray: 60px 0 184px;
+    stroke-dashoffset: 0;
+  }
+  70% {
+    stroke-dasharray: 63px 51px 184px;
+    stroke-dashoffset: 21px;
+  }
+  100% {
+    stroke-dasharray: 59px 47px 184px;
+    stroke-dashoffset: 17px;
+  }
+}
+@keyframes shape-r {
+  0% {
+    stroke-dasharray: 59px 47px 184px;
+    stroke-dashoffset: 17px;
+  }
+  100% {
+    stroke-dasharray: 60px 0 184px;
+    stroke-dashoffset: 0;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <svg style="width: 60px;" id="sound-max" x="0px" y="0px" viewBox="0 0 880.2 800" enable-background="new 0 0 880.2 800" xml:space="preserve">
+<path id="path" class="path lines paused" fill="none" stroke="#231F20" stroke-width="30" stroke-linecap="round" stroke-miterlimit="10" d="M531,548.3
+	c77.3-77.2,77.4-202.5,0.2-279.8c-0.1-0.1-0.1-0.1-0.2-0.2"/>
+<path class="path lines paused" fill="none" stroke="#231F20" stroke-width="30" stroke-linecap="round" stroke-miterlimit="10" d="M589,631.6
+	c123.3-123.2,123.4-323,0.2-446.3c-0.1-0.1-0.2-0.2-0.2-0.2"/>
+<path class="path" fill="#231F20" d="M379.3,136c-12.4-5.2-26.7-2.5-36.3,7L219.7,266.7h-86.3c-36.8,0-66.7,29.8-66.7,66.7v133.3
+	c0,36.8,29.8,66.7,66.7,66.7h86.3L343,657c6.3,6.2,14.8,9.7,23.7,9.7c4.4,0.1,8.7-0.8,12.7-2.7c12.4-5.1,20.6-17.2,20.7-30.7V166.7
+	C399.9,153.2,391.8,141.1,379.3,136z"/>
+<line class="path close paused" fill="none" stroke="#231F20" stroke-width="30" stroke-linecap="round" stroke-miterlimit="10" x1="532" y1="545.7" x2="806.9" y2="270.7"/>
+<line class="path close paused" fill="none" stroke="#231F20" stroke-width="30" stroke-linecap="round" stroke-miterlimit="10" x1="532" y1="270.7" x2="806.9" y2="545.7"/>
+</svg>
+
+
+
+<label class="volume-icon">
+    <input class="volume-icon__input" type="checkbox">
+    <svg viewBox="0 0 108 96"><path d="M7 28h28L59 8v80L35 68H7a4 4 0 01-4-4V32a4 4 0 014-4z"/><path d="M79 62c4-4.667 6-9.333 6-14s-2-9.333-6-14L49 3"/><path d="M95 69c6.667-7.333 10-14.667 10-22s-3.333-14.667-10-22L75.5 6 49 33"/></svg>
+</label>
+<script>
+  // const muteIconX = document.getElementsByClassName('close');
+
+const soundIcon = document.getElementById('sound-max');
+
+const soundIconPath = document.getElementById('path');
+const soundIconLines = document.getElementsByClassName('lines');
+const soundIconXs = document.getElementsByClassName('close');
+
+
+
+soundIcon.addEventListener('click', (event) => {
+  console.log("clicked");
+  if (soundIconPath.classList.contains('lines', 'paused')) {
+    for (const soundIconLine of soundIconLines) {
+     soundIconLine.classList.add('running');
+     soundIconLine.classList.remove('paused');
+   }
+   for (const soundIconX of soundIconXs) {
+    soundIconX.classList.remove('running');
+  }
+} else {
+  for (const soundIconX of soundIconXs) {
+    soundIconX.classList.add('running');
+    soundIconX.classList.remove('paused');
+ }
+ for (const soundIconX of soundIconXs) {
+  soundIconX.classList.remove('running');
+}
+}
+
+});
+
+
+</script>
+  </body>
+</html>
